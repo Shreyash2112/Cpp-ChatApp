@@ -61,9 +61,24 @@ int main () {
         cout << "Client can start sending & recieving data" << endl;
     }
 
+// Send message to server
+    char buffer[2000];
+    printf("Enter your message : ");
+    cin.getline(buffer, 2000);
+    int byte_count = send(clientSocket, buffer, 2000, 0);
+    if(byte_count == SOCKET_ERROR) {
+        printf("send failed with error: %ld\n", WSAGetLastError());
+        closesocket(clientSocket);
+        WSACleanup();
+        return 1;
+    }
+    else{
+        printf("Bytes sent: %ld\n", byte_count);
+    }
+
+// Revieve data unitl the server closes the connection
+
     closesocket(clientSocket);
     WSACleanup();
-    return 0;
-
     return 0;
 } 

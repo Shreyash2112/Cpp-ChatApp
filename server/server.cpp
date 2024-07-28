@@ -87,6 +87,16 @@ int main()
         cout << "Connection Recieved" << endl;
     }
 
+// Recieve message from client
+    char recvBuf[2000] = " ";
+    int byte_count = recv(acceptSocket, recvBuf, 2000, 0);
+    if(byte_count == SOCKET_ERROR) {
+        printf("recieve failed with error: %ld\n", WSAGetLastError());
+    }
+    else{
+        printf("Recieved data: %s \n", recvBuf);
+    }
+
     closesocket(serverSocket);
     WSACleanup();
     return 0;
